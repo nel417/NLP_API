@@ -65,3 +65,17 @@ def get_text_sentiment(sentence_input: Input):
               "Positive words": total_pos, "Negative Words": total_neg}
 
     return {"output": output}
+
+
+@app.post("/entity_recognition")
+def get_entity(sentence_input: Input):
+    document = en_core_web(sentence_input.sentence)
+
+    output_array = []
+
+    for token in document.ents:
+        output = {
+            "Text": token.text, "Start Char": token.start_char, "End Char": token.end_char, "Label": token.label_
+        }
+        output_array.append(output)
+    return {"output": output_array}
