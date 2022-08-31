@@ -77,3 +77,7 @@ def get_text_sentiment(sentence_input: Input):
               "Positive words": total_pos, "Negative Words": total_neg}
 
     return {"output": output}
+
+
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)
