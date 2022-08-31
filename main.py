@@ -3,11 +3,26 @@ from fastapi import FastAPI
 import spacy
 from pydantic import BaseModel
 from spacytextblob.spacytextblob import SpacyTextBlob
+from starlette.middleware.cors import CORSMiddleware
 
 en_core_web = spacy.load("en_core_web_sm")
 en_core_web.add_pipe('spacytextblob')
 
 app = FastAPI(tags=['sentence'])
+
+origins = \
+    ["https://nlp-appi.herokuapp.com/analyze_text",
+     "https://nlp-appi.herokuapp.com/sentiment_analysis",
+     "https://nlp-appi.herokuapp.com/entity_recognition"
+     ]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class Input(BaseModel):

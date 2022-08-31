@@ -5,3 +5,4 @@ spacy==3.4.1
 requests==2.28.1
 fastapi==0.81.0
 pydantic==1.9.2
+starlette~=0.19.1
