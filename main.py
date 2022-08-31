@@ -4,7 +4,7 @@ import spacy
 from pydantic import BaseModel
 from spacytextblob.spacytextblob import SpacyTextBlob
 
-en_core_web = spacy.load("en_core_web_lg")
+en_core_web = spacy.load("en_core_web_sm")
 en_core_web.add_pipe('spacytextblob')
 
 app = FastAPI(tags=['sentence'])
