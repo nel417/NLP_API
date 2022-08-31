@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import FastAPI
 import spacy
 from pydantic import BaseModel
@@ -6,7 +7,7 @@ from spacytextblob.spacytextblob import SpacyTextBlob
 en_core_web = spacy.load("en_core_web_lg")
 en_core_web.add_pipe('spacytextblob')
 
-app = FastAPI()
+app = FastAPI(tags=['sentence'])
 
 
 class Input(BaseModel):
@@ -16,14 +17,25 @@ class Input(BaseModel):
 @app.post("/analyze_text")
 def get_text_characteristics(sentence_input: Input):
     document = en_core_web(sentence_input.sentence)
-
     output_array = []
-
     for token in document:
         output = {
             "Index": token.i, "Token": token.text, "Tag": token.tag_, "POS": token.pos_,
             "Dependency": token.dep_, "Lemma": token.lemma_, "Shape": token.shape_,
             "Alpha": token.is_alpha, "Is Stop Word": token.is_stop
+        }
+        output_array.append(output)
+    return {"output": output_array}
+
+
+@app.post("/entity_recognition")
+def get_entity(sentence_input: Input):
+    document = en_core_web(sentence_input.sentence)
+    output_array = []
+    for token in document.ents:
+        output = {
+            "Text": token.text, "Start Char": token.start_char,
+            "End Char": token.end_char, "Label": token.label_
         }
         output_array.append(output)
     return {"output": output_array}
@@ -65,17 +77,3 @@ def get_text_sentiment(sentence_input: Input):
               "Positive words": total_pos, "Negative Words": total_neg}
 
     return {"output": output}
-
-
-@app.post("/entity_recognition")
-def get_entity(sentence_input: Input):
-    document = en_core_web(sentence_input.sentence)
-
-    output_array = []
-
-    for token in document.ents:
-        output = {
-            "Text": token.text, "Start Char": token.start_char, "End Char": token.end_char, "Label": token.label_
-        }
-        output_array.append(output)
-    return {"output": output_array}
