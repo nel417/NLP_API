@@ -2,6 +2,12 @@ import uvicorn
 from fastapi import FastAPI
 import spacy
 from pydantic import BaseModel
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn import svm
+from sklearn.tree import DecisionTreeClassifier
+
+import model
 from spacytextblob.spacytextblob import SpacyTextBlob
 
 en_core_web = spacy.load("en_core_web_sm")
@@ -12,6 +18,39 @@ app = FastAPI(tags=['sentence'])
 
 class Input(BaseModel):
     sentence: str
+
+
+# kind of fidgety, it's my first model. feel free to work off of it.
+# data set has lots of positive, but not a lot of negative so i had to chop
+# it in half to get equal amounts.
+@app.post('/get_svm_sentiment')
+def get_svm_sentiment(sentence_input: Input):
+    Train, Test = train_test_split(model.reviews, test_size=0.33, random_state=42)
+    container_train = model.ReviewContainer(Train)
+    container_test = model.ReviewContainer(Test)
+    container_train.even()
+    x_train = container_train.get_text()
+    y_train = container_train.get_labels()
+    container_test.even()
+    x_test = container_test.get_text()
+    y_test = container_test.get_labels()
+    vec = TfidfVectorizer()
+    train_x_vec = vec.fit_transform(x_train)
+    test_x_vec = vec.transform(x_test)
+    y_train.count(model.Sentiment.NEGATIVE)
+    classify = svm.SVC(kernel='linear')
+    classify.fit(train_x_vec, y_train)
+    classify_dec = DecisionTreeClassifier()
+    from sklearn.metrics import f1_score
+    classify_dec.fit(train_x_vec, y_train)
+    new_test = vec.transform([sentence_input.sentence])
+    output = classify.predict(new_test)
+    return_score = f1_score(y_test,
+                            classify.predict(test_x_vec),
+                            average=None,
+                            labels=[model.Sentiment.POSITIVE, model.Sentiment.NEUTRAL, model.Sentiment.NEGATIVE])
+
+    return {tuple(output), tuple(return_score)}
 
 
 @app.post("/analyze_text")
