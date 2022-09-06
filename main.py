@@ -120,3 +120,4 @@ def get_text_sentiment(sentence_input: Input):
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
+
