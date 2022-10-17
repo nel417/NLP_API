@@ -118,5 +118,5 @@ def get_text_sentiment(sentence_input: Input):
     return {"output": output}
 
 
-if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+# if __name__ == "__main__":
+#     app.run(host='0.0.0.0')
