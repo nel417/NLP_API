@@ -1,9 +1,8 @@
-import uvicorn
 from fastapi import FastAPI
 import spacy
 from pydantic import BaseModel
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
 from sklearn import svm
 from sklearn.tree import DecisionTreeClassifier
 
@@ -116,7 +115,3 @@ def get_text_sentiment(sentence_input: Input):
               "Positive words": total_pos, "Negative Words": total_neg}
 
     return {"output": output}
-
-
-# if __name__ == "__main__":
-#     app.run(host='0.0.0.0')
