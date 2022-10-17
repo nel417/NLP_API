@@ -80,10 +80,7 @@ def test_get_text_analysis_failed():
     response = client.post(
         "/analyze_text",
         headers={"content-type": "application/json"},
-        json={"sentence": "John likes to ride bikes and eating pizza"},
+        json={"sentence": None},
     )
 
-    f = open("jsonfiles/analyze_response.json", "r")
-    output = json.loads(f.read())
-    assert response.status_code == 204
-    assert response.json() == output
+    assert response.status_code == 422
