@@ -1,0 +1,92 @@
+{
+  "output": [
+    {
+      "Index": 0,
+      "Token": "John",
+      "Tag": "NNP",
+      "POS": "PROPN",
+      "Dependency": "nsubj",
+      "Lemma": "John",
+      "Shape": "Xxxx",
+      "Alpha": true,
+      "Is Stop Word": false
+    },
+    {
+      "Index": 1,
+      "Token": "likes",
+      "Tag": "VBZ",
+      "POS": "VERB",
+      "Dependency": "ROOT",
+      "Lemma": "like",
+      "Shape": "xxxx",
+      "Alpha": true,
+      "Is Stop Word": false
+    },
+    {
+      "Index": 2,
+      "Token": "to",
+      "Tag": "TO",
+      "POS": "PART",
+      "Dependency": "aux",
+      "Lemma": "to",
+      "Shape": "xx",
+      "Alpha": true,
+      "Is Stop Word": true
+    },
+    {
+      "Index": 3,
+      "Token": "ride",
+      "Tag": "VB",
+      "POS": "VERB",
+      "Dependency": "xcomp",
+      "Lemma": "ride",
+      "Shape": "xxxx",
+      "Alpha": true,
+      "Is Stop Word": false
+    },
+    {
+      "Index": 4,
+      "Token": "bikes",
+      "Tag": "NNS",
+      "POS": "NOUN",
+      "Dependency": "dobj",
+      "Lemma": "bike",
+      "Shape": "xxxx",
+      "Alpha": true,
+      "Is Stop Word": false
+    },
+    {
+      "Index": 5,
+      "Token": "and",
+      "Tag": "CC",
+      "POS": "CCONJ",
+      "Dependency": "cc",
+      "Lemma": "and",
+      "Shape": "xxx",
+      "Alpha": true,
+      "Is Stop Word": true
+    },
+    {
+      "Index": 6,
+      "Token": "eating",
+      "Tag": "VBG",
+      "POS": "VERB",
+      "Dependency": "amod",
+      "Lemma": "eat",
+      "Shape": "xxxx",
+      "Alpha": true,
+      "Is Stop Word": false
+    },
+    {
+      "Index": 7,
+      "Token": "pizza",
+      "Tag": "NN",
+      "POS": "NOUN",
+      "Dependency": "conj",
+      "Lemma": "pizza",
+      "Shape": "xxxx",
+      "Alpha": true,
+      "Is Stop Word": false
+    }
+  ]
+}

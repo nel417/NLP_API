@@ -1,3 +1,4 @@
+import json
 from fastapi.testclient import TestClient
 from main import app
 
@@ -12,16 +13,7 @@ def test_get_entity():
     )
 
     assert response.status_code == 200
-    assert response.json() == {
-        "output": [
-            {
-                "Text": "Bill Gates",
-                "Start Char": 0,
-                "End Char": 10,
-                "Label": "PERSON"
-            }
-        ]
-    }
+    assert response.json() == {"output": [{"Text": "Bill Gates", "Start Char": 0, "End Char": 10, "Label": "PERSON"}]}
 
 
 def test_get_entity_empty():
@@ -41,25 +33,10 @@ def test_get_text_sentiment_neg():
         json={"sentence": "I hate Chilis."},
     )
 
+    f = open("jsonfiles/sentiment_negative.json", "r")
+    output = json.loads(f.read())
     assert response.status_code == 200
-    assert response.json() == {
-
-            "output": {
-                "Score": [
-                    -0.8
-                ],
-                "Label": [
-                    "Negative"
-                ],
-                "Positive words": [
-                    ""
-                ],
-                "Negative Words": [
-                    "hate"
-                ]
-            }
-
-    }
+    assert response.json() == output
 
 
 def test_get_text_sentiment_pos():
@@ -69,24 +46,10 @@ def test_get_text_sentiment_pos():
         json={"sentence": "I love Chilis."},
     )
 
+    f = open("jsonfiles/sentiment_positive.json", "r")
+    output = json.loads(f.read())
     assert response.status_code == 200
-    assert response.json() == {
-
-            "output": {
-                "Score": [
-                    0.5
-                ],
-                "Label": [
-                    "Positive"
-                ],
-                "Positive words": [
-                    "love"
-                ],
-                "Negative Words": [
-                    ""
-                ]
-            }
-    }
+    assert response.json() == output
 
 
 def test_get_text_sentiment_null():
@@ -97,3 +60,16 @@ def test_get_text_sentiment_null():
     )
 
     assert response.status_code == 422
+
+
+def test_get_text_analysis():
+    response = client.post(
+        "/analyze_text",
+        headers={"content-type": "application/json"},
+        json={"sentence": "John likes to ride bikes and eating pizza"},
+    )
+
+    f = open("jsonfiles/analyze_response.json", "r")
+    output = json.loads(f.read())
+    assert response.status_code == 200
+    assert response.json() == output

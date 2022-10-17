@@ -1,0 +1,18 @@
+{
+
+        "output": {
+            "Score": [
+                -0.8
+            ],
+            "Label": [
+                "Negative"
+            ],
+            "Positive words": [
+                ""
+            ],
+            "Negative Words": [
+                "hate"
+            ]
+        }
+
+    }
