@@ -49,4 +49,3 @@ with open(file_name) as f:
     for line in f:
         review = json.loads(line)
         reviews.append(Review(review["reviewText"], review["overall"]))
-

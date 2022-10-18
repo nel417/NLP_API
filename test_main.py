@@ -75,7 +75,6 @@ def test_get_text_analysis():
     assert response.json() == output
 
 
-
 def test_get_text_analysis_failed():
     response = client.post(
         "/analyze_text",
