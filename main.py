@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn import svm
 from sklearn.tree import DecisionTreeClassifier
-from transformers import pipeline, set_seed,AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import pipeline, set_seed, AutoTokenizer, AutoModelForSeq2SeqLM
 
 import model
 from spacytextblob.spacytextblob import SpacyTextBlob

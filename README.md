@@ -59,6 +59,23 @@ request will be:
 }
 ```
 
+POST.  
+### /generate_text
+generates random text using a gpt2 model and the transformers library. Its fairly wonky but very fun to use. perhaps if you have gpt3 access or another heavy model you will get better results, but very fun to play with:   
+```JSON
+{
+"sentence" : "My name is Nick and I like"
+}
+```
+
+POST.  
+### /translate_french  
+endpoint that will translate english to french.
+```JSON
+{
+"sentence" : "Where is the bathroom and nearest cafe?"
+}
+```
 
 ## RUN. 
 ```
