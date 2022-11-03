@@ -1,12 +1,7 @@
-<div style="text-align:center;">
-
-![logo](newlogo.jpeg)
-
 # Natural Language Processing API - FastAPI, spaCy, SKLearn  
 api that does sentiment analysis and analyzes text for tokens index, text, tag, POS, Dependency, Lemma, Shape, Alpha, and stop words
 
 ![example workflow](https://github.com/nel417/NLP_API/actions/workflows/nlpapi.yml/badge.svg)
-</div>
 
 ## model. 
 ```PYTHON3
@@ -36,7 +31,6 @@ request will be:
 "sentence" : "I am going to play basketball"
 }
 ```
-
 
 POST. 
 ### /entity_recognition  
