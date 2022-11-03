@@ -5,6 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn import svm
 from sklearn.tree import DecisionTreeClassifier
+from transformers import pipeline, set_seed
 
 import model
 from spacytextblob.spacytextblob import SpacyTextBlob
@@ -115,3 +116,12 @@ def get_text_sentiment(sentence_input: Input):
               "Positive words": total_pos, "Negative Words": total_neg}
 
     return {"output": output}
+
+
+@app.post("/generate_text")
+def generate_text(sentence_input: Input):
+    generator = pipeline('text-generation', model='gpt2')
+    set_seed(42)
+    input_string = sentence_input.sentence
+    output = generator(input_string, max_length=1000)
+    return output
