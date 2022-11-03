@@ -83,3 +83,25 @@ def test_get_text_analysis_failed():
     )
 
     assert response.status_code == 422
+
+
+def test_translate_to_french():
+    response = client.post(
+        "/translate_french",
+        headers={"content-type": "application/json"},
+        json={"sentence": "where is the nearest airport and coffee shop?"},
+    )
+
+    output = "Où sont l'aéroport et le café le plus proche?"
+    assert response.status_code == 200
+    assert response.json() == output
+
+
+def test_generate_text():
+    response = client.post(
+        "/generate_text",
+        headers={"content-type": "application/json"},
+        json={"sentence": "text is too random, just testing status code"},
+    )
+
+    assert response.status_code == 200

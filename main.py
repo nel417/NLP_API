@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn import svm
 from sklearn.tree import DecisionTreeClassifier
-from transformers import pipeline, set_seed
+from transformers import pipeline, set_seed,AutoTokenizer, AutoModelForSeq2SeqLM
 
 import model
 from spacytextblob.spacytextblob import SpacyTextBlob
@@ -123,5 +123,16 @@ def generate_text(sentence_input: Input):
     generator = pipeline('text-generation', model='gpt2')
     set_seed(42)
     input_string = sentence_input.sentence
-    output = generator(input_string, max_length=1000)
+    output = generator(input_string, max_length=512)
     return output
+
+
+@app.post("/translate_french")
+def translate(sentence_input: Input):
+    tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-en-fr")
+    model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-en-fr")
+    input = sentence_input.sentence
+    input_ids = tokenizer.encode(input, return_tensors="pt")
+    outputs = model.generate(input_ids, max_length=512)
+    decoded = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    return decoded

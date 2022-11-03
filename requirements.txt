@@ -6,6 +6,7 @@ requests==2.28.1
 fastapi==0.81.0
 pydantic==1.9.2
 sklearn~=0.0
+sentencepiece==0.1.97
 scikit-learn~=1.1.2
 torch==1.13.0
 transformers~=4.24.0
