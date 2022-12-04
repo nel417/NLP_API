@@ -6,7 +6,6 @@ from sklearn.model_selection import train_test_split
 from sklearn import svm
 from sklearn.tree import DecisionTreeClassifier
 from transformers import pipeline, set_seed, AutoTokenizer, AutoModelForSeq2SeqLM
-
 import model
 from spacytextblob.spacytextblob import SpacyTextBlob
 
@@ -63,6 +62,7 @@ def get_text_characteristics(sentence_input: Input):
             "Dependency": token.dep_, "Lemma": token.lemma_, "Shape": token.shape_,
             "Alpha": token.is_alpha, "Is Stop Word": token.is_stop
         }
+        print(output)
         output_array.append(output)
     return {"output": output_array}
 
@@ -77,6 +77,7 @@ def get_entity(sentence_input: Input):
             "End Char": token.end_char, "Label": token.label_
         }
         output_array.append(output)
+        print(output_array)
     return {"output": output_array}
 
 
@@ -115,6 +116,10 @@ def get_text_sentiment(sentence_input: Input):
     output = {"Score": url_sent_score, "Label": url_sent_label,
               "Positive words": total_pos, "Negative Words": total_neg}
 
+    print(f' sentiment is: {url_sent_label}')
+    print(f' score is: {url_sent_score}')
+    print(f' postitive words are: {positive_words}')
+    print(f' negative words are: {negative_words}')
     return {"output": output}
 
 
@@ -124,6 +129,7 @@ def generate_text(sentence_input: Input):
     set_seed(42)
     input_string = sentence_input.sentence
     output = generator(input_string, max_length=512)
+    print(output)
     return output
 
 
@@ -135,4 +141,6 @@ def translate(sentence_input: Input):
     input_ids = tokenizer.encode(input, return_tensors="pt")
     outputs = model.generate(input_ids, max_length=512)
     decoded = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    print(outputs)
+    print(decoded)
     return decoded
