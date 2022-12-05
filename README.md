@@ -32,6 +32,16 @@ request will be:
 }
 ```
 
+POST.  
+### /summarize
+summarizes paragraphs  
+request will be:
+```JSON
+{
+"sentence" : "Lately I have been really interested in language. I’ve been all over polyglot Youtube and started learning French on Duolingo. Communication and how we speak is very interesting to me. Even non verbal, ie: communicating with animals, colors (red bad green good) and so forth. I have a hard time with side projects, I’m in the web space and you can imagine how boring it is making some sort of crud app and plus, I don’t really have any crazy business ideas. I love python and web technologies so I wanted to build something to help me visualize words in a sentence and learn more about how it is all broken down. So I made a small API to break down a few things. The first endpoint analyzes text and will show the words part of speech, lemma, shape, dependency, alpha, and if its a stop word (and an id for indexing sake) and another endpoint for named entity recognition that shows start character, end character, the text itself, and the label that is tied to the text ie Mcdonalds : ORG ."
+}
+```
+
 POST. 
 ### /entity_recognition  
 gets input text and displays named entities. where they begin, end, what the entity is, and the label.   
