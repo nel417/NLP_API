@@ -144,3 +144,16 @@ def translate(sentence_input: Input):
     print(outputs)
     print(decoded)
     return decoded
+
+
+@app.post("/summarize")
+def summarize(sentence_input: Input):
+    tokenizer = AutoTokenizer.from_pretrained("google/pegasus-large")
+    model = AutoModelForSeq2SeqLM.from_pretrained("google/pegasus-large")
+    input = sentence_input.sentence
+    input_ids = tokenizer.encode(input, return_tensors="pt")
+    outputs = model.generate(input_ids, max_length=512)
+    decoded = tokenizer.decode(outputs[0], skip_special_tokens=True)
+    print(outputs)
+    print(decoded)
+    return decoded
